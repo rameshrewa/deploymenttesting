@@ -25,5 +25,8 @@ jobs:
       with:
         args: deploy --only hosting:htcapplicationtest
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_QA }}
-        PROJECT_ID: rameshtest-f25de
+        PROJECT_ID: rameshtest-f25de     
+     — name: Create SA key
+       run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > $HOME/gcloud.json
+     — name: Deploy Cloud Functions
+       run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only functions --json   
