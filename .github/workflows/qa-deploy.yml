@@ -4,16 +4,19 @@ on:
     branches:
     - staging
 jobs:
- build_and_deploy:
-   runs-on: ubuntu-latest
-   steps:
-     - uses: actions/checkout@v2
-     - uses: actions/setup-node@v1
-       with:
-         node-version: 16.x
-     - name: Build Cloud Functions
-       run: cd functions && npm ci
-     - name: Create SA key
+ qabuild:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.13.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.13.0
+    - name: npm install
+      run: npm install
+    - name: npm run build
+      run: npm run build  
+    - name: Create SA key
        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > $HOME/gcloud.json
-     - name: Deploy Cloud Functions
+    - name: Deploy Cloud Functions
        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only functions --json
