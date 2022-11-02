@@ -28,3 +28,4 @@ jobs:
           args: deploy --only hosting:forests-hfn-qa     
         env:        
           PROJECT_ID: rameshtest-f25de
+          GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
