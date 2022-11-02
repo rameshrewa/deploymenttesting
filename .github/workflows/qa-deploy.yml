@@ -21,6 +21,10 @@ jobs:
       - name: Create SA key
         run: echo "$FIREBASE_SERVICE_ACCOUNT_DETAILS" > $HOME/gcloud.json
       - name: Deploy Cloud Functions
-        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only hosting:htcapplicationtest
+        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+        args: deploy --only hosting:forests-hfn-qa     
         env:        
           PROJECT_ID: rameshtest-f25de
