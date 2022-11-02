@@ -25,6 +25,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-        args: deploy --only hosting:forests-hfn-qa     
+          args: deploy --only hosting:forests-hfn-qa     
         env:        
           PROJECT_ID: rameshtest-f25de
