@@ -1,26 +1,29 @@
-name: Deploy Cloud Functions
+name: QA-Deploy
+
 on:
   push:
     branches:
-      - development
+    - development
+
 jobs:
   qabuild:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 16.15.1
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.15.1
-      - name: npm install
-        run: npm install
-      - name: npm run build
-        run: npm run build
-        env:
-          FIREBASE_SERVICE_ACCOUNT_DETAILS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}   
-      - name: Create SA key
-        run: echo "$FIREBASE_SERVICE_ACCOUNT_DETAILS" > $HOME/gcloud.json
-      - name: Deploy Cloud Functions
-        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json && npx firebase-tools deploy --only hosting:htcapplicationtest
-        env:        
-          PROJECT_ID: rameshtest-f25de
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.13.0
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.13.0
+    - name: npm install
+      run: npm install
+    - name: npm run build
+      run: npm run build
+      env:
+        NODE_OPTIONS: --max_old_space_size=8192
+    - name: Deploy to Firebase
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting:htcapplicationtest
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_QA }}       
+        PROJECT_ID: rameshtest-f25de
