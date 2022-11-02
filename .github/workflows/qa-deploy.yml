@@ -2,7 +2,7 @@ name: Deploy Cloud Functions
 on:
   push:
     branches:
-      - staging
+      - development
 jobs:
   qabuild:
     runs-on: ubuntu-latest
