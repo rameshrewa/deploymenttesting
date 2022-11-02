@@ -16,12 +16,12 @@ jobs:
         run: npm install
       - name: npm run build
         run: npm run build
-     env:
+        env:
         NODE_OPTIONS: --max_old_space_size=8192
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
-      with:
-        args: deploy --only hosting:htcapplicationtest
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_QA }}      
-        PROJECT_ID: rameshtest-f25de
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+            args: deploy --only hosting:htcapplicationtest
+            env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_QA }}      
+            PROJECT_ID: rameshtest-f25de
