@@ -1,11 +1,8 @@
 name: Deploy Cloud Functions
 on:
- workflow_dispatch:
- push:
-   branches:
-     - staging
-   paths:
-     — 'functions/**'
+  push:
+    branches:
+    - staging
 jobs:
  build_and_deploy:
    runs-on: ubuntu-latest
