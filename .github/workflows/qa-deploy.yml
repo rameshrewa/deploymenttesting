@@ -17,11 +17,7 @@ jobs:
       - name: npm run build
         run: npm run build
         env:
-          FIREBASE_SERVICE_ACCOUNT_DETAILS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}   
-      - name: Create SA key
-        run: echo "$FIREBASE_SERVICE_ACCOUNT_DETAILS" > $HOME/gcloud.json
-      - name: Deploy Cloud Functions
-        run: export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud.json
+          FIREBASE_SERVICE_ACCOUNT_DETAILS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}  
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
